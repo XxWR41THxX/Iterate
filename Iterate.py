@@ -2,7 +2,7 @@
 
 import os
 import subprocess
-from termcolor import colored  # You may need to install the termcolor module
+
 
 def run_tool(command, filepath):
     output_folder = "scan_results"
@@ -17,10 +17,10 @@ def run_tool(command, filepath):
                 process = subprocess.Popen(command.split() + [domain], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, bufsize=1, universal_newlines=True)
 
                 for line in process.stdout:
-                    print(colored(line.strip(), "green"))
+                    print(line.strip(), "green"))
 
                 for line in process.stderr:
-                    print(colored(line.strip(), "red"))
+                    print(line.strip(), "red"))
 
                 process.wait()
 
@@ -28,7 +28,7 @@ def run_tool(command, filepath):
                 with open(output_file, "w") as output:
                     output.write(process.stdout.read())
             except subprocess.CalledProcessError as e:
-                print(colored(f"Error running {command} for {domain}: {e.stderr.strip()}", "red"))
+                print(f"Error running {command} for {domain}: {e.stderr.strip()}", "red"))
 
 def main():
     command = input("Enter the command to run (e.g., nmap -p- -T4): ")
